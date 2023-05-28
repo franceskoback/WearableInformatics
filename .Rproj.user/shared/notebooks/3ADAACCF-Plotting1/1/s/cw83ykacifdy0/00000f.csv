@@ -1,5 +1,0 @@
-"0","# Load required libraries"
-"0","library(ggplot2)"
-"0",""
-"0","# Read the aggregate CSV file"
-"0","data <- read.csv(""aggregate1.csv"")"

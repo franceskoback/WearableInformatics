@@ -18,7 +18,7 @@ plotData <- function(participant) {
   
   # Create the plots
   plot_resting_hr <- ggplot(participant_data, aes(x = Date, y = RestingHeartRate)) +
-    geom_line(color = "pink", size = 1) +
+    geom_line(color = "#FF6EC7", size = 1) +
     labs(y = "Resting Heart Rate") +
     theme_minimal() +
     theme(axis.text.x = element_blank(),
@@ -42,7 +42,7 @@ plotData <- function(participant) {
     ggtitle("Sleep Duration")
   
   plot_steps <- ggplot(participant_data, aes(x = Date, y = Steps)) +
-    geom_line(color = "orange", size = 1) +
+    geom_line(color = "green", size = 1) +
     labs(y = "Steps") +
     theme_minimal() +
     theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1, vjust = 1),

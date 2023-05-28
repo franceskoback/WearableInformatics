@@ -16,13 +16,11 @@ When you click the **Knit** button a document will be generated that includes bo
 ```{r}
 # Load required libraries
 library(ggplot2)
+library(patchwork)
 
 # Read the aggregate CSV file
 data <- read.csv("aggregate1.csv")
-```
 
-
-```{r}
 # Convert the Date column to a date format
 data$Date <- as.Date(data$Date)
 
@@ -34,23 +32,37 @@ plotParticipantData <- function(participant) {
   # Subset data for the current participant
   participant_data <- subset(data, ParticipantIdentifier == participant)
   
-  # Create the plot
-  plot <- ggplot(participant_data, aes(x = Date)) +
-    geom_line(aes(y = RestingHeartRate, color = "Resting Heart Rate")) +
-    geom_line(aes(y = Sleep, color = "Sleep Duration")) +
-    geom_line(aes(y = Steps, color = "Steps")) +
-    labs(title = paste("Participant", participant), x = "Date", y = "Value") +
-    scale_color_manual(values = c("Resting Heart Rate" = "blue", "Sleep Duration" = "red", "Steps" = "green")) +
+  # Create the Resting Heart Rate plot
+  plot_heart_rate <- ggplot(participant_data, aes(x = Date, y = RestingHeartRate)) +
+    geom_line(color = "#FF6EC7") +
+    labs(title = paste("Participant", participant), x = "Date", y = "Resting Heart Rate") +
     theme_minimal()
   
-  # Display the plot
-  print(plot)
+  # Create the Sleep Duration plot
+  plot_sleep_duration <- ggplot(participant_data, aes(x = Date, y = Sleep)) +
+    geom_line(color = "cyan") +
+    labs( x = "Date", y = "Sleep Duration") +
+    theme_minimal()
+  
+  # Create the Steps plot
+  plot_steps <- ggplot(participant_data, aes(x = Date, y = Steps)) +
+    geom_line(color = "green") +
+    labs(x = "Date", y = "Steps") +
+    theme_minimal()
+  
+  # Combine the plots using patchwork
+  combined_plot <- plot_heart_rate + plot_sleep_duration + plot_steps + plot_layout(nrow = 3)
+  
+  # Display the combined plot
+  print(combined_plot)
 }
 
 # Generate and display the plots for each participant
 for (participant in participants) {
   plotParticipantData(participant)
 }
+
+
 ```
 
 
