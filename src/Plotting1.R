@@ -3,7 +3,7 @@ library(ggplot2)
 library(gridExtra)
 
 # Read the aggregate CSV file
-data <- read.csv("aggregate1.csv")
+data <- read.csv("../data/aggregate1.csv")
 
 # Convert the Date column to a date format
 data$Date <- as.Date(data$Date)
@@ -56,6 +56,10 @@ plotData <- function(participant) {
   # Combine the plots into a single figure with subplots
   combined_plot <- grid.arrange(plot_resting_hr, plot_sleep, plot_steps,
                                 nrow = 3, top = participant)
+  
+  # Save the combined plot with a unique name in the "plots" directory
+  filename <- paste0("../figures/participant_", participant, "_plot.png")
+  ggsave(filename, combined_plot)
   
   # Display the combined plot
   print(combined_plot)
